@@ -28,6 +28,8 @@ public class CommonRadiusDialog {
     private LinearLayout container;
     private TextView titleTv;
     private TextView msgTv;
+    private TextView tvContentSecond;
+    private TextView tvContentThird;
     private TextView negBtn;
     private TextView posBtn;
     private Display display;
@@ -58,6 +60,8 @@ public class CommonRadiusDialog {
         negBtn = view.findViewById(R.id.negBtn);
         titleTv = view.findViewById(R.id.tvTitle);
         msgTv = view.findViewById(R.id.tvContentFirst);
+        tvContentSecond = view.findViewById(R.id.tvContentSecond);
+        tvContentThird = view.findViewById(R.id.tvContentThird);
         this.dialog = new Dialog(context, R.style.AlertDialogStyle);
         dialog.setContentView(view);
         Window window = dialog.getWindow();
@@ -70,7 +74,7 @@ public class CommonRadiusDialog {
         int width = dm.widthPixels;
         container.setLayoutParams(
                 new FrameLayout.LayoutParams(
-                        (int) (width * 0.6),
+                        (int) (width * 0.65),
                         LinearLayout.LayoutParams.WRAP_CONTENT));
 
     }
@@ -126,6 +130,30 @@ public class CommonRadiusDialog {
         } else {
             msgTv.setText(msg);
             msgTv.setVisibility(View.VISIBLE);
+            showMsg = false;
+        }
+        return this;
+    }
+
+    public CommonRadiusDialog setSecondMsg(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            tvContentSecond.setVisibility(View.GONE);
+            showMsg = true;
+        } else {
+            tvContentSecond.setText(msg);
+            tvContentSecond.setVisibility(View.VISIBLE);
+            showMsg = false;
+        }
+        return this;
+    }
+
+    public CommonRadiusDialog setThirdMsg(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            tvContentThird.setVisibility(View.GONE);
+            showMsg = true;
+        } else {
+            tvContentThird.setText(msg);
+            tvContentThird.setVisibility(View.VISIBLE);
             showMsg = false;
         }
         return this;

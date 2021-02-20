@@ -35,6 +35,8 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.certify.SelectCertifyActivity;
+import com.tourcool.ui.citizen_card.CitizenCardBindActivity;
+import com.tourcool.ui.citizen_card.CitizenCardTabActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
@@ -67,7 +69,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     private LinearLayout llUnlogin;
     private TextView tvNickName;
     private TextView tvPhone;
-//    public static final String MINE_ITEM_NAME_POINT = "我的积分";
+    //    public static final String MINE_ITEM_NAME_POINT = "我的积分";
     public static final String MINE_ITEM_NAME_CARD = "我的卡";
     public static final String MINE_ITEM_NAME_SOCIAL_SECURITY = "我的社保";
     public static final String MINE_ITEM_NAME_ACCUMULATION_FUND = "我的公积金";
@@ -169,6 +171,9 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                     break;
                 case MINE_ITEM_NAME_SOCIAL_SECURITY:
                     skipSocialBase();
+                    break;
+                case MINE_ITEM_NAME_CARD:
+                    goCitizenCard();
                     break;
                 default:
                     ToastUtil.show("敬请期待");
@@ -384,4 +389,30 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         startActivity(intent);
     }
 
+
+    private void goCitizenCard() {
+        ApiRepository.getInstance().requestHasBindCitizenCard().compose(bindUntilEvent(FragmentEvent.DESTROY)).subscribe(new BaseLoadingObserver<BaseResult<Boolean>>() {
+            @Override
+            public void onRequestNext(BaseResult<Boolean> entity) {
+                if (entity == null) {
+                    ToastUtil.show(R.string.fast_exception_http);
+                    return;
+                }
+                if (entity.status == CODE_REQUEST_SUCCESS) {
+                    skipCitizenCardByCondition(entity.data);
+                } else {
+                    ToastUtil.show(entity.errorMsg);
+                }
+            }
+        });
+    }
+
+
+    private void skipCitizenCardByCondition(boolean hasCard) {
+        if (hasCard) {
+            FrameUtil.startActivity(mContext, CitizenCardTabActivity.class);
+        } else {
+            FrameUtil.startActivity(mContext, CitizenCardBindActivity.class);
+        }
+    }
 }

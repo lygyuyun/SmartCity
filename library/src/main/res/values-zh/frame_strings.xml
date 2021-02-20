@@ -17,7 +17,7 @@
     <string name="fast_exception_http">服务器开了点小差</string>
     <string name="fast_exception_unknown_host">无法解析主机(DNS错误)</string>
     <string name="fast_exception_json_syntax">Json数据格式化错误</string>
-    <string name="fast_exception_time_out">访问超时</string>
+    <string name="fast_exception_time_out">请求超时</string>
     <string name="fast_exception_class_cast">类型转换错误</string>
     <string name="fast_exception_other_error">其它错误</string>
     <string name="fast_loading">加载中...</string>

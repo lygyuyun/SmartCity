@@ -33,60 +33,9 @@ public class UserInfo  implements Parcelable {
     private String name;
     private String idCard;
     private boolean verified;
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.authenticationLevel);
-        dest.writeString(this.iconUrl);
-        dest.writeString(this.nickname);
-        dest.writeString(this.phoneNumber);
-        dest.writeString(this.name);
-        dest.writeString(this.idCard);
-        dest.writeByte(this.verified ? (byte) 1 : (byte) 0);
-    }
-
-    public UserInfo() {
-    }
-
-    protected UserInfo(Parcel in) {
-        this.authenticationLevel = in.readInt();
-        this.iconUrl = in.readString();
-        this.nickname = in.readString();
-        this.phoneNumber = in.readString();
-        this.name = in.readString();
-        this.idCard = in.readString();
-        this.verified = in.readByte() != 0;
-    }
-
-    @Generated(hash = 236875673)
-    public UserInfo(int authenticationLevel, String iconUrl, String nickname,
-            String phoneNumber, String name, String idCard, boolean verified) {
-        this.authenticationLevel = authenticationLevel;
-        this.iconUrl = iconUrl;
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-        this.idCard = idCard;
-        this.verified = verified;
-    }
-
-    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
-        @Override
-        public UserInfo createFromParcel(Parcel source) {
-            return new UserInfo(source);
-        }
-
-        @Override
-        public UserInfo[] newArray(int size) {
-            return new UserInfo[size];
-        }
-    };
+    private String citizenCardMaterialNo;
+    private String citizenCardVirtualNo;
+    private Integer citizenCardQrCodeState;
 
     public int getAuthenticationLevel() {
         return authenticationLevel;
@@ -144,11 +93,112 @@ public class UserInfo  implements Parcelable {
         this.verified = verified;
     }
 
-    public static Creator<UserInfo> getCREATOR() {
-        return CREATOR;
+    public String getCitizenCardMaterialNo() {
+        return citizenCardMaterialNo;
+    }
+
+    public void setCitizenCardMaterialNo(String citizenCardMaterialNo) {
+        this.citizenCardMaterialNo = citizenCardMaterialNo;
+    }
+
+    public String getCitizenCardVirtualNo() {
+        return citizenCardVirtualNo;
+    }
+
+    public void setCitizenCardVirtualNo(String citizenCardVirtualNo) {
+        this.citizenCardVirtualNo = citizenCardVirtualNo;
+    }
+
+    public Integer getCitizenCardQrCodeState() {
+        return citizenCardQrCodeState;
+    }
+
+    public void setCitizenCardQrCodeState(Integer citizenCardQrCodeState) {
+        this.citizenCardQrCodeState = citizenCardQrCodeState;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "authenticationLevel=" + authenticationLevel +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", verified=" + verified +
+                ", citizenCardMaterialNo='" + citizenCardMaterialNo + '\'' +
+                ", citizenCardVirtualNo='" + citizenCardVirtualNo + '\'' +
+                ", citizenCardQrCodeState=" + citizenCardQrCodeState +
+                '}';
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.authenticationLevel);
+        dest.writeString(this.iconUrl);
+        dest.writeString(this.nickname);
+        dest.writeString(this.phoneNumber);
+        dest.writeString(this.name);
+        dest.writeString(this.idCard);
+        dest.writeByte(this.verified ? (byte) 1 : (byte) 0);
+        dest.writeString(this.citizenCardMaterialNo);
+        dest.writeString(this.citizenCardVirtualNo);
+        dest.writeValue(this.citizenCardQrCodeState);
     }
 
     public boolean getVerified() {
         return this.verified;
     }
+
+    public UserInfo() {
+    }
+
+    protected UserInfo(Parcel in) {
+        this.authenticationLevel = in.readInt();
+        this.iconUrl = in.readString();
+        this.nickname = in.readString();
+        this.phoneNumber = in.readString();
+        this.name = in.readString();
+        this.idCard = in.readString();
+        this.verified = in.readByte() != 0;
+        this.citizenCardMaterialNo = in.readString();
+        this.citizenCardVirtualNo = in.readString();
+        this.citizenCardQrCodeState = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    @Generated(hash = 1607468501)
+    public UserInfo(int authenticationLevel, String iconUrl, String nickname,
+            String phoneNumber, String name, String idCard, boolean verified,
+            String citizenCardMaterialNo, String citizenCardVirtualNo,
+            Integer citizenCardQrCodeState) {
+        this.authenticationLevel = authenticationLevel;
+        this.iconUrl = iconUrl;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.idCard = idCard;
+        this.verified = verified;
+        this.citizenCardMaterialNo = citizenCardMaterialNo;
+        this.citizenCardVirtualNo = citizenCardVirtualNo;
+        this.citizenCardQrCodeState = citizenCardQrCodeState;
+    }
+
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel source) {
+            return new UserInfo(source);
+        }
+
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
 }

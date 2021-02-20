@@ -2,7 +2,6 @@ package com.tourcool.core.util;
 
 import android.text.TextUtils;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.FastDateFormat;
 
@@ -273,5 +272,22 @@ public class DateUtil {
         return (day>0?day+",":"")+hour+"小时"+min+"分钟"+s+"秒";
     }
 
+    public static String formatDateTime(Date date){
+        final FastDateFormat df = FastDateFormat.getInstance("yyyymmdd");
+        try {
+            return df.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String formatDateTimeChina(Date date){
+        final FastDateFormat df = FastDateFormat.getInstance("yyyy/MM/dd");
+        try {
+            return df.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
 }

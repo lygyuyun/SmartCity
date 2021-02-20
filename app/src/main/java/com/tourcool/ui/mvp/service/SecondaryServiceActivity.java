@@ -120,6 +120,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                 matrixBeanList.add(matrixBean);
             }
         }
+
         View emptyView = View.inflate(mContext, R.layout.common_status_layout_empty, null);
         adapter.setEmptyView(emptyView);
         adapter.setNewData(matrixBeanList);

@@ -31,6 +31,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         public final static Property Name = new Property(4, String.class, "name", false, "NAME");
         public final static Property IdCard = new Property(5, String.class, "idCard", false, "ID_CARD");
         public final static Property Verified = new Property(6, boolean.class, "verified", false, "VERIFIED");
+        public final static Property CitizenCardMaterialNo = new Property(7, String.class, "citizenCardMaterialNo", false, "CITIZEN_CARD_MATERIAL_NO");
+        public final static Property CitizenCardVirtualNo = new Property(8, String.class, "citizenCardVirtualNo", false, "CITIZEN_CARD_VIRTUAL_NO");
+        public final static Property CitizenCardQrCodeState = new Property(9, Integer.class, "citizenCardQrCodeState", false, "CITIZEN_CARD_QR_CODE_STATE");
     }
 
 
@@ -52,7 +55,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
                 "\"PHONE_NUMBER\" TEXT," + // 3: phoneNumber
                 "\"NAME\" TEXT," + // 4: name
                 "\"ID_CARD\" TEXT," + // 5: idCard
-                "\"VERIFIED\" INTEGER NOT NULL );"); // 6: verified
+                "\"VERIFIED\" INTEGER NOT NULL ," + // 6: verified
+                "\"CITIZEN_CARD_MATERIAL_NO\" TEXT," + // 7: citizenCardMaterialNo
+                "\"CITIZEN_CARD_VIRTUAL_NO\" TEXT," + // 8: citizenCardVirtualNo
+                "\"CITIZEN_CARD_QR_CODE_STATE\" INTEGER);"); // 9: citizenCardQrCodeState
     }
 
     /** Drops the underlying database table. */
@@ -91,6 +97,21 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
             stmt.bindString(6, idCard);
         }
         stmt.bindLong(7, entity.getVerified() ? 1L: 0L);
+ 
+        String citizenCardMaterialNo = entity.getCitizenCardMaterialNo();
+        if (citizenCardMaterialNo != null) {
+            stmt.bindString(8, citizenCardMaterialNo);
+        }
+ 
+        String citizenCardVirtualNo = entity.getCitizenCardVirtualNo();
+        if (citizenCardVirtualNo != null) {
+            stmt.bindString(9, citizenCardVirtualNo);
+        }
+ 
+        Integer citizenCardQrCodeState = entity.getCitizenCardQrCodeState();
+        if (citizenCardQrCodeState != null) {
+            stmt.bindLong(10, citizenCardQrCodeState);
+        }
     }
 
     @Override
@@ -123,6 +144,21 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
             stmt.bindString(6, idCard);
         }
         stmt.bindLong(7, entity.getVerified() ? 1L: 0L);
+ 
+        String citizenCardMaterialNo = entity.getCitizenCardMaterialNo();
+        if (citizenCardMaterialNo != null) {
+            stmt.bindString(8, citizenCardMaterialNo);
+        }
+ 
+        String citizenCardVirtualNo = entity.getCitizenCardVirtualNo();
+        if (citizenCardVirtualNo != null) {
+            stmt.bindString(9, citizenCardVirtualNo);
+        }
+ 
+        Integer citizenCardQrCodeState = entity.getCitizenCardQrCodeState();
+        if (citizenCardQrCodeState != null) {
+            stmt.bindLong(10, citizenCardQrCodeState);
+        }
     }
 
     @Override
@@ -139,7 +175,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // phoneNumber
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // name
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // idCard
-            cursor.getShort(offset + 6) != 0 // verified
+            cursor.getShort(offset + 6) != 0, // verified
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // citizenCardMaterialNo
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // citizenCardVirtualNo
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9) // citizenCardQrCodeState
         );
         return entity;
     }
@@ -153,6 +192,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         entity.setName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setIdCard(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setVerified(cursor.getShort(offset + 6) != 0);
+        entity.setCitizenCardMaterialNo(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setCitizenCardVirtualNo(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCitizenCardQrCodeState(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
      }
     
     @Override

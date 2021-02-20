@@ -2,6 +2,8 @@ package com.frame.library.core.util;
 
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.StringUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -112,5 +114,35 @@ public class StringUtil {
         }
         return String.valueOf(num);
     }
+
+    public static String getVersionCode(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return "000000";
+        }
+        String[] version = str.split("\\.");
+        if (version.length == 3) {
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(appendStr(version[0]));
+            stringBuffer.append(appendStr(version[1]));
+            stringBuffer.append(appendStr(version[2]));
+            return stringBuffer.toString();
+        }
+        return "000000";
+    }
+
+    private static StringBuffer appendStr(String str) {
+        StringBuffer stringBuffer = new StringBuffer();
+        if (str.length() == 0) {
+            stringBuffer.append("00");
+        } else if (str.length() == 1) {
+            stringBuffer.append("0").append(str);
+        } else if (str.length() > 2) {
+            stringBuffer.append(str, 0, 2);
+        } else {
+            stringBuffer.append(str);
+        }
+        return stringBuffer;
+    }
+
 
 }

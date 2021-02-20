@@ -4,6 +4,11 @@ package com.tourcool.core.retrofit.service;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.citizen_card.CardInfo;
+import com.tourcool.bean.citizen_card.CardMaterialInfo;
+import com.tourcool.bean.citizen_card.CitizenAccountInfo;
+import com.tourcool.bean.citizen_card.OpenCardVirtual;
+import com.tourcool.bean.citizen_card.TransactionRecord;
 import com.tourcool.bean.driver.DriverAgainstInfo;
 import com.tourcool.bean.express.ExpressBean;
 import com.tourcool.bean.express.ExpressCompany;
@@ -411,6 +416,50 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/getDriverLicenseScore")
     Observable<BaseResult<String>> requestDriverLicenseScore(@QueryMap Map<String, Object> map);
+
+
+    /**
+     * 申请乘车码
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/applyBusCode")
+    Observable<BaseResult<CitizenAccountInfo>> requestApplyBusCode(@QueryMap Map<String, Object> map);
+
+    /**
+     * 判断当前是否有市名卡
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/hasBindCitizenCard")
+    Observable<BaseResult<Boolean>> requestHasBindCitizenCard();
+
+    /**
+     * 申请虚拟卡
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/applyVirtualCard")
+    Observable<BaseResult<OpenCardVirtual>> requestApplyVirtualCard();
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/getCitizenCardMaterialInfo")
+    Observable<BaseResult<CardMaterialInfo>> requestCitizenCardMaterialInfo();
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/bindCitizenCardMaterial")
+    Observable<BaseResult<CardMaterialInfo>> requestBindCitizenCardMaterial();
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/queryCitizenCardAccount")
+    Observable<BaseResult<CardInfo>> requestQueryCitizenCardAccount();
+
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/queryTransactionRecord")
+    Observable<BaseResult<TransactionRecord>> requestQueryTransactionRecord(@QueryMap Map<String, Object> map);
+
 }
 
 

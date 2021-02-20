@@ -177,6 +177,8 @@
         <activity android:name="com.tourcool.ui.driver.AgainstScoreDetailActivity" />
         <activity android:name="com.tourcool.ui.citizen_card.CitizenCardTabActivity" />
         <activity android:name="com.tourcool.ui.citizen_card.CitizenCardQrCodeActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.CitizenCardBindActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.card.CitizenCardTransactionRecordActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"
@@ -203,6 +205,11 @@
             android:name="com.pgyersdk.PgyerProvider"
             android:authorities="${applicationId}.com.pgyer.provider"
             android:exported="false" />
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="f85c58d526187709b4adf7fdcc5de717">
+
+        </meta-data>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -216,6 +223,14 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+
+
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
 
 </manifest>

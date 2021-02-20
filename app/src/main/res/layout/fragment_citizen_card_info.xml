@@ -32,6 +32,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -40,12 +41,11 @@
                 android:gravity="start"
                 android:paddingTop="@dimen/dp_16"
                 android:paddingBottom="@dimen/dp_16"
-                android:text="张三"
                 android:textColor="@color/grayA2A2A2"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
-        <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+        <include layout="@layout/line_horizontal_gray_e0e0e0_0_5_dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
-                android:id="@+id/tvOrderMoney"
+                android:id="@+id/tvPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -69,12 +69,11 @@
                 android:gravity="start"
                 android:paddingTop="@dimen/dp_16"
                 android:paddingBottom="@dimen/dp_16"
-                android:text="15256585940"
                 android:textColor="@color/grayA2A2A2"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
-        <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+        <include layout="@layout/line_horizontal_gray_e0e0e0_0_5_dp" />
 
     </LinearLayout>
 
@@ -103,6 +102,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tvAccountMoney"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -111,13 +111,12 @@
                 android:gravity="start"
                 android:paddingTop="@dimen/dp_16"
                 android:paddingBottom="@dimen/dp_16"
-                android:text="5.00"
                 android:textColor="#5593FF"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+        <include layout="@layout/line_horizontal_gray_e0e0e0_0_5_dp" />
     </LinearLayout>
 
     <RelativeLayout

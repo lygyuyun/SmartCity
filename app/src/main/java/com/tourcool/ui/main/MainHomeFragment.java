@@ -36,6 +36,7 @@ import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
 import com.frame.library.core.util.NetworkUtil;
 import com.frame.library.core.util.SizeUtil;
@@ -83,6 +84,7 @@ import com.tourcool.ui.mvp.weather.WeatherActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.tourcool.ui.social.SocialBaseInfoActivity;
 import com.tourcool.ui.social.detail.SocialListDetailActivity;
+import com.tourcool.util.DeviceUtils;
 import com.tourcool.widget.webview.CommonWebViewActivity;
 import com.tourcool.widget.webview.WebViewConstant;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -194,6 +196,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         tvAirQuality = mContentView.findViewById(R.id.tvAirQuality);
         tvDate = mContentView.findViewById(R.id.tvDate);
         ivWeather = mContentView.findViewById(R.id.ivWeather);
+        TourCooLogUtil.i("设备信息:"+ DeviceUtils.getPhoneDetail());
     }
 
     @Override
@@ -1315,7 +1318,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
      */
     private void refreshUserInfo() {
         ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(FragmentEvent.DESTROY)).
-                subscribe(new BaseLoadingObserver<BaseResult>() {
+                subscribe(new BaseObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
                         if (entity == null) {

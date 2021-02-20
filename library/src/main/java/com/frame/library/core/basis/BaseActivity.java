@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -22,23 +25,19 @@ import com.frame.library.core.control.IBaseView;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.control.QuitAppControl;
 import com.frame.library.core.log.TourCooLogUtil;
-import com.frame.library.core.util.FrameUtil;
-import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseObserver;
+import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.tourcool.library.frame.demo.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
-import com.trello.rxlifecycle3.components.support.RxFragment;
 
 import org.simple.eventbus.EventBus;
 
 import java.util.List;
-
-import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -413,5 +412,28 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
     }
 
 
+    public void showLoadingDialog(String msg) {
+        if (loadingDialog != null && !loadingDialog.isShowing()) {
+            if (!TextUtils.isEmpty(msg)) {
+                loadingDialog.setLoadingText(msg);
+            }
+            loadingDialog.show();
+        } else {
+            if (loadingDialog == null) {
+                loadingDialog = new FrameLoadingDialog(mContext);
+            }
+            if (!TextUtils.isEmpty(msg)) {
+                loadingDialog.setLoadingText(msg);
+            }
+            loadingDialog.show();
+        }
+    }
 
+
+    public void closeLoadingDialog() {
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
+        loadingDialog = null;
+    }
 }

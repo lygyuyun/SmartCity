@@ -8,6 +8,11 @@ import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
 import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.citizen_card.CardInfo;
+import com.tourcool.bean.citizen_card.CardMaterialInfo;
+import com.tourcool.bean.citizen_card.CitizenAccountInfo;
+import com.tourcool.bean.citizen_card.OpenCardVirtual;
+import com.tourcool.bean.citizen_card.TransactionRecord;
 import com.tourcool.bean.driver.DriverAgainstInfo;
 import com.tourcool.bean.express.ExpressBean;
 import com.tourcool.bean.express.ExpressCompany;
@@ -439,9 +444,53 @@ public class ApiRepository extends AbstractRepository {
         Map<String, Object> params = new HashMap<>(1);
         params.put("dabh", dossier);
         params.put("jszh", license);
+
         TourCooLogUtil.i("提交到后台的参数", params);
         return FrameTransformer.switchSchedulers(getApiService().requestDriverLicenseScore(params).retryWhen(new RetryWhen()));
     }
 
+    public Observable<BaseResult<CitizenAccountInfo>> requestApplyBusCode(Map<String, Object> params) {
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestApplyBusCode(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<Boolean>> requestHasBindCitizenCard() {
+        return FrameTransformer.switchSchedulers(getApiService().requestHasBindCitizenCard().retryWhen(new RetryWhen()));
+    }
+
+    /**
+     * 申请虚拟卡
+     *
+     * @return
+     */
+    public Observable<BaseResult<OpenCardVirtual>> requestApplyVirtualCard() {
+        return FrameTransformer.switchSchedulers(getApiService().requestApplyVirtualCard().retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult<CardMaterialInfo>> requestCitizenCardMaterialInfo() {
+        return FrameTransformer.switchSchedulers(getApiService().requestCitizenCardMaterialInfo().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<CardMaterialInfo>> requestBindCitizenCardMaterial() {
+        return FrameTransformer.switchSchedulers(getApiService().requestBindCitizenCardMaterial().retryWhen(new RetryWhen()));
+    }
+    public Observable<BaseResult<CardInfo>> requestQueryCitizenCardAccount() {
+        return FrameTransformer.switchSchedulers(getApiService().requestQueryCitizenCardAccount().retryWhen(new RetryWhen()));
+    }
+
+    /**
+     * 查询交易记录
+     * @param params
+     * @return
+     */
+    public Observable<BaseResult<TransactionRecord>> requestQueryTransactionRecord(Map<String, Object> params) {
+     /*   Map<String, Object> params = new HashMap<>(1);
+        params.put("acctype", dossier);
+        params.put("jszh", license);*/
+
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestQueryTransactionRecord(params).retryWhen(new RetryWhen()));
+    }
 
 }

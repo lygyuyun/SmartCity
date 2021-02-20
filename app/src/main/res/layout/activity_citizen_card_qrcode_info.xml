@@ -38,16 +38,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="@dimen/dp_155"
-                        android:layout_height="@dimen/dp_155"
+                        android:id="@+id/ivQrCode"
+                        android:layout_width="@dimen/dp_170"
+                        android:layout_height="@dimen/dp_170"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/dp_50"
+                        android:layout_marginTop="@dimen/dp_20"
                         android:src="@mipmap/ic_no_network" />
                 </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/tvLogin"
+                    android:id="@+id/tvRefresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -81,6 +82,7 @@
 
                 <LinearLayout
                     android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -210,7 +212,6 @@
                     android:id="@+id/tvCurrentMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20.00元"
                     android:textStyle="bold"
                     android:textColor="#5593FF" />
             </LinearLayout>

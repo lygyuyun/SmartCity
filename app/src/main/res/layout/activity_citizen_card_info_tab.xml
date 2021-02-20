@@ -45,6 +45,7 @@
                             android:textColor="@color/white" />
 
                         <TextView
+                            android:id="@+id/tvName"
                             style="@style/Text12spBlack333333"
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/dp_10"
@@ -107,6 +108,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
+                        android:id="@+id/tvCardNum"
                         style="@style/Text12spBlack333333"
                         android:layout_width="0dp"
                         android:layout_marginStart="@dimen/dp_10"
@@ -136,6 +138,7 @@
                     android:src="@mipmap/ic_citizen_card_logo" />
 
                 <ImageView
+                    android:id="@+id/ivQrCode"
                     android:layout_below="@id/logo"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp_35"
