@@ -6,12 +6,16 @@ import com.frame.library.core.retrofit.FrameTransformer;
 import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
+import com.tourcool.bean.PayInfo;
+import com.tourcool.bean.account.UserInfo;
 import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.citizen_card.CardInfo;
 import com.tourcool.bean.citizen_card.CardMaterialInfo;
 import com.tourcool.bean.citizen_card.CitizenAccountInfo;
 import com.tourcool.bean.citizen_card.OpenCardVirtual;
+import com.tourcool.bean.citizen_card.RechargeRecord;
+import com.tourcool.bean.citizen_card.RefundResult;
 import com.tourcool.bean.citizen_card.TransactionRecord;
 import com.tourcool.bean.driver.DriverAgainstInfo;
 import com.tourcool.bean.express.ExpressBean;
@@ -475,12 +479,14 @@ public class ApiRepository extends AbstractRepository {
     public Observable<BaseResult<CardMaterialInfo>> requestBindCitizenCardMaterial() {
         return FrameTransformer.switchSchedulers(getApiService().requestBindCitizenCardMaterial().retryWhen(new RetryWhen()));
     }
+
     public Observable<BaseResult<CardInfo>> requestQueryCitizenCardAccount() {
         return FrameTransformer.switchSchedulers(getApiService().requestQueryCitizenCardAccount().retryWhen(new RetryWhen()));
     }
 
     /**
      * 查询交易记录
+     *
      * @param params
      * @return
      */
@@ -491,6 +497,39 @@ public class ApiRepository extends AbstractRepository {
 
         TourCooLogUtil.i("提交到后台的参数", params);
         return FrameTransformer.switchSchedulers(getApiService().requestQueryTransactionRecord(params).retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult<List<RechargeRecord>>> requestRechargeRecord(Map<String, Object> params) {
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestRechargeRecord(params).retryWhen(new RetryWhen()));
+    }
+
+
+    /**
+     * 解绑实体卡
+     *
+     * @return
+     */
+    public Observable<BaseResult<UserInfo>> requestUnbindCardMaterial() {
+        return FrameTransformer.switchSchedulers(getApiService().requestUnbindCardMaterial().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<PayInfo>> requestPayRecharge(Integer payType, Integer payAmount) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("amount",payAmount);
+        params.put("payType", payType);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestPayRecharge(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<RefundResult>> requestRechargeRefund(Map<String, Object> params) {
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestRechargeRefund(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<UserInfo>> requestCloseCard() {
+        return FrameTransformer.switchSchedulers(getApiService().requestCloseCard().retryWhen(new RetryWhen()));
     }
 
 }

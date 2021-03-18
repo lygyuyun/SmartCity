@@ -2,12 +2,16 @@ package com.tourcool.core.retrofit.service;
 
 
 import com.frame.library.core.retrofit.FrameRetrofit;
+import com.tourcool.bean.PayInfo;
+import com.tourcool.bean.account.UserInfo;
 import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.citizen_card.CardInfo;
 import com.tourcool.bean.citizen_card.CardMaterialInfo;
 import com.tourcool.bean.citizen_card.CitizenAccountInfo;
 import com.tourcool.bean.citizen_card.OpenCardVirtual;
+import com.tourcool.bean.citizen_card.RechargeRecord;
+import com.tourcool.bean.citizen_card.RefundResult;
 import com.tourcool.bean.citizen_card.TransactionRecord;
 import com.tourcool.bean.driver.DriverAgainstInfo;
 import com.tourcool.bean.express.ExpressBean;
@@ -459,6 +463,33 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/card/queryTransactionRecord")
     Observable<BaseResult<TransactionRecord>> requestQueryTransactionRecord(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/unbindCardMaterial")
+    Observable<BaseResult<UserInfo>> requestUnbindCardMaterial();
+
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/pay/appPay")
+    Observable<BaseResult<PayInfo>> requestPayRecharge(@QueryMap Map<String, Object> map);
+
+
+    /**
+     * 充值记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/queryRechargeRecord")
+    Observable<BaseResult<List<RechargeRecord>>> requestRechargeRecord(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/rechargeRefund")
+    Observable<BaseResult<RefundResult>> requestRechargeRefund(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/card/closeBusCode")
+    Observable<BaseResult<UserInfo>> requestCloseCard();
 
 }
 

@@ -1,6 +1,7 @@
 package com.tourcool.ui.citizen_card
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.amap.api.location.AMapLocation
@@ -16,6 +17,10 @@ import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseTitleTransparentActivity
+import com.tourcool.ui.citizen_card.CitizenCardTabActivity.Companion.EXTRA_KEY
+import com.tourcool.ui.citizen_card.CitizenCardTabActivity.Companion.EXTRA_SKIP_RECHARGE
+import com.tourcool.ui.citizen_card.CitizenCardTabActivity.Companion.REQUEST_CODE_RECHARGE
+import com.tourcool.ui.citizen_card.card.CitizenCardTransactionRecordActivity
 import com.tourcool.ui.citizen_card.card.LocateUtil
 import com.tourcool.util.DeviceUtils
 import com.trello.rxlifecycle3.android.ActivityEvent
@@ -30,7 +35,7 @@ import pub.devrel.easypermissions.PermissionRequest
  * @date 2020年12月23日10:43
  * @Email: 971613168@qq.com
  */
-class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(),View.OnClickListener {
+class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(), View.OnClickListener {
     private var dialog: FrameLoadingDialog? = null
     private val defaultCode = "宜兴消费码"
     override fun getContentLayout(): Int {
@@ -44,9 +49,13 @@ class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(),View.OnClickLis
 
     override fun initView(savedInstanceState: Bundle?) {
         tvRefresh.setOnClickListener(this)
-        ivQrCode.setImageBitmap(CodeUtils.createQRCode(defaultCode, SizeUtil.dp2px(170f)))
+//
         dialog = FrameLoadingDialog(mContext)
         requestCostCode()
+        tvRecharge.setOnClickListener(this)
+        llCostRecord.setOnClickListener {
+            FrameUtil.startActivity(mContext, CitizenCardTransactionRecordActivity::class.java)
+        }
     }
 
     private fun requestCostCode() {
@@ -106,10 +115,19 @@ class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(),View.OnClickLis
         params.put("appver", StringUtil.getVersionCode(versionName))
         ApiRepository.getInstance().requestApplyBusCode(params).compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<CitizenAccountInfo>>() {
             override fun onRequestNext(entity: BaseResult<CitizenAccountInfo>) {
+                if (entity.data == null) {
+                    return
+                }
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                     showCostInfo(entity.data)
                 } else {
-                    ToastUtil.show(entity.errorMsg)
+                    if (entity.errorMsg.contains("不足")) {
+                        showAmountNotEnough()
+                        ToastUtil.show(entity.errorMsg)
+                        showAmount(entity.data.balance)
+                    } else {
+                        ToastUtil.show(entity.errorMsg)
+                    }
                 }
             }
         })
@@ -120,15 +138,11 @@ class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(),View.OnClickLis
         var code = "智慧宜兴二维码消费"
         if (info != null) {
             code = StringUtil.getNotNullValueLine(info.qrcode)
+            showAmount(info.balance)
         }
-        val money: Double = try {
-            (StringUtil.getNotNullValue(info?.balance).toDouble()) / 100.00
-        } catch (e: NumberFormatException) {
-            0.0
-        }
-        val accountMoney = "" + DoubleUtil.doubleFormatString(money)  + "元"
-        tvCurrentMoney.text = accountMoney
+
         ivQrCode.setImageBitmap(CodeUtils.createQRCode(code, SizeUtil.dp2px(170f)))
+        setViewGone(llAmountEnough, false)
     }
 
     override fun onClick(v: View?) {
@@ -136,9 +150,34 @@ class CitizenCardQrCodeActivity : BaseTitleTransparentActivity(),View.OnClickLis
             R.id.tvRefresh -> {
                 requestCostCode()
             }
+            R.id.tvRecharge -> {
+                skipRecharge()
+            }
             else -> {
             }
         }
     }
 
+    private fun showAmountNotEnough() {
+        ivQrCode.setImageBitmap(CodeUtils.createQRCode(defaultCode, SizeUtil.dp2px(170f)))
+        setViewGone(llAmountEnough, true)
+    }
+
+
+    private fun skipRecharge() {
+        val intent = Intent()
+        intent.setClass(mContext, CitizenCardTabActivity::class.java)
+        intent.putExtra(EXTRA_KEY, EXTRA_SKIP_RECHARGE)
+        startActivityForResult(intent, REQUEST_CODE_RECHARGE)
+    }
+
+    private fun showAmount(balance: String?) {
+        val money: Double = try {
+            (StringUtil.getNotNullValue(balance).toDouble()) / 100.00
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+        val accountMoney = "" + DoubleUtil.doubleFormatString(money) + "元"
+        tvCurrentMoney.text = accountMoney
+    }
 }

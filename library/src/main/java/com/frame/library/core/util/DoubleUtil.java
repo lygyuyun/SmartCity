@@ -18,7 +18,7 @@ public class DoubleUtil {
      * @param value        double数据.
      * @param scale        精度位数(保留的小数位数).
      * @param roundingMode 精度取值方式.
-     * @return 精度计算后的数据.
+     * @return 精度计算后的数据..
      */
     public static double round(double value, int scale,
                                int roundingMode) {
@@ -45,6 +45,10 @@ public class DoubleUtil {
 
     public static String doubleFormatString(double value) {
         DecimalFormat df = new DecimalFormat("######0.00");
+        return df.format(value);
+    }
+    public static String doubleFormatString1(double value) {
+        DecimalFormat df = new DecimalFormat("######0");
         return df.format(value);
     }
 

@@ -2,7 +2,7 @@ package com.tourcool.bean.citizen_card;
 
 /**
  * @author :JenkinsZhou
- * @description : JenkinsZhou
+ * @description : 市名卡账户信息
  * @company :途酷科技
  * @date 2021年02月19日17:43
  * @Email: 971613168@qq.com

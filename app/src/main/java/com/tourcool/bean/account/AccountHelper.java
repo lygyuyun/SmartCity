@@ -110,6 +110,8 @@ public class AccountHelper {
     public void logout() {
         userInfo = null;
         deleteUserInfoFromDisk();
+        accessToken = "";
+        refreshToken = "";
         TourCooLogUtil.e(TAG, "退出登录了");
         SPUtils.getInstance().put(PREF_ACCESS_TOKEN, "");
         SPUtils.getInstance().put(PREF_REFRESH_TOKEN, "");

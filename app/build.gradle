@@ -209,7 +209,7 @@ dependencies {
     // 数据库
     implementation 'org.greenrobot:greendao:3.2.2'
     // 支付宝 SDK AAR 包所需的配置
-    implementation(name: 'alipaySdk-15.6.4-20190624155522', ext: 'aar')
+    implementation(name: 'alipaysdk-15.8.01.210112203525', ext: 'aar')
     implementation(name: 'verifysdk-1.0.0.190522154510', ext: 'aar')
     implementation(name: 'releaseLoging-4.0.0.00000003', ext: 'aar')
     implementation(name: 'bio-7.1.0.00000001', ext: 'aar')
@@ -247,4 +247,5 @@ dependencies {
     //AndroidX 版本
     implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
 }

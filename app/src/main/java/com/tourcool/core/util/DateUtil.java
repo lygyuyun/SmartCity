@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -205,8 +206,8 @@ public class DateUtil {
 
 
     public static String formatDateToShort(String str) {
-        SimpleDateFormat sf1 = new SimpleDateFormat(PATTERN_DATE);
-        SimpleDateFormat sf2 = new SimpleDateFormat("MM-dd");
+        SimpleDateFormat sf1 = new SimpleDateFormat(PATTERN_DATE, Locale.getDefault());
+        SimpleDateFormat sf2 = new SimpleDateFormat("MM-dd", Locale.getDefault());
         String formatStr;
         try {
             formatStr = sf2.format(sf1.parse(str));
@@ -216,9 +217,10 @@ public class DateUtil {
         }
         return formatStr;
     }
+
     public static String formatDateToMonthAndDaySlash(String str) {
-        SimpleDateFormat sf1 = new SimpleDateFormat(PATTERN_DATE);
-        SimpleDateFormat sf2 = new SimpleDateFormat("MM/dd");
+        SimpleDateFormat sf1 = new SimpleDateFormat(PATTERN_DATE, Locale.getDefault());
+        SimpleDateFormat sf2 = new SimpleDateFormat("MM/dd", Locale.getDefault());
         String formatStr;
         try {
             formatStr = sf2.format(sf1.parse(str));
@@ -231,49 +233,58 @@ public class DateUtil {
 
     public static String friendlyTime(Date time) {
         //获取time距离当前的秒数
-        int ct = (int)((System.currentTimeMillis() - time.getTime())/1000);
+        int ct = (int) ((System.currentTimeMillis() - time.getTime()) / 1000);
 
-        if(ct == 0) {
+        if (ct == 0) {
             return "刚刚";
         }
 
-        if(ct > 0 && ct < 60) {
+        if (ct > 0 && ct < 60) {
             return ct + "秒前";
         }
 
-        if(ct >= 60 && ct < 3600) {
-            return Math.max(ct / 60,1) + "分钟前";
+        if (ct >= 60 && ct < 3600) {
+            return Math.max(ct / 60, 1) + "分钟前";
         }
-        if(ct >= 3600 && ct < 86400)
+        if (ct >= 3600 && ct < 86400)
             return ct / 3600 + "小时前";
-        if(ct >= 86400 && ct < 2592000){ //86400 * 30
-            int day = ct / 86400 ;
+        if (ct >= 86400 && ct < 2592000) { //86400 * 30
+            int day = ct / 86400;
             return day + "天前";
         }
-        if(ct >= 2592000 && ct < 31104000) { //86400 * 30
+        if (ct >= 2592000 && ct < 31104000) { //86400 * 30
             return ct / 2592000 + "月前";
         }
         return ct / 31104000 + "年前";
     }
 
 
-
     /**
      * 转换为时间（天,时:分:秒.毫秒）
+     *
      * @param timeMillis
      * @return
      */
-    public static String formatDateTimeChinese(long timeMillis){
-        long day = timeMillis/(24*60*60*1000);
-        long hour = (timeMillis/(60*60*1000)-day*24);
-        long min = ((timeMillis/(60*1000))-day*24*60-hour*60);
-        long s = (timeMillis/1000-day*24*60*60-hour*60*60-min*60);
+    public static String formatDateTimeChinese(long timeMillis) {
+        long day = timeMillis / (24 * 60 * 60 * 1000);
+        long hour = (timeMillis / (60 * 60 * 1000) - day * 24);
+        long min = ((timeMillis / (60 * 1000)) - day * 24 * 60 - hour * 60);
+        long s = (timeMillis / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
 //        long sss = (timeMillis-day*24*60*60*1000-hour*60*60*1000-min*60*1000-s*1000);
-        return (day>0?day+",":"")+hour+"小时"+min+"分钟"+s+"秒";
+        return (day > 0 ? day + "," : "") + hour + "小时" + min + "分钟" + s + "秒";
     }
 
-    public static String formatDateTime(Date date){
-        final FastDateFormat df = FastDateFormat.getInstance("yyyymmdd");
+    public static String formatDateTime(Date date) {
+        SimpleDateFormat sf1 = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        try {
+            return sf1.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String formatDateTimeChina(Date date) {
+        final FastDateFormat df = FastDateFormat.getInstance("yyyy/MM/dd");
         try {
             return df.format(date);
         } catch (Exception e) {
@@ -281,10 +292,79 @@ public class DateUtil {
         }
     }
 
-    public static String formatDateTimeChina(Date date){
-        final FastDateFormat df = FastDateFormat.getInstance("yyyy/MM/dd");
+
+    /**
+     * 获取日期字符串。
+     *
+     * <pre>
+     *  日期字符串格式： yyyyMMdd
+     *  其中：
+     *      yyyy   表示4位年。
+     *      MM     表示2位月。
+     *      dd     表示2位日。
+     * </pre>
+     *
+     * @param date 需要转化的日期。
+     * @return String "yyyyMMdd"格式的日期字符串。
+     */
+    /**
+     * 将指定的日期字符串转化为日期对象
+     *
+     * @param dateStr 日期字符串
+     * @return java.util.Date
+     * @roseuid 3F39FE450385
+     */
+
+
+
+    public static Date getDate(String dateStr) {
+        if (dateStr.length() == 8) {
+            // 日期型
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+            try {
+                java.util.Date date = df.parse(dateStr);
+                return date;
+            } catch (Exception ex) {
+//				Logger.write("日期格式不符合或者日期为空！请检查！");
+                return null;
+            } // end try - catch
+        } else if (dateStr.length() == 23) {
+            // 日期时间型
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
+            try {
+                java.util.Date date = df.parse(dateStr);
+                return date;
+            } catch (Exception ex) {
+                return null;
+            } // end try - catch
+        } else if (dateStr.length() == 6) {
+            // 时间型
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("HHmmss", Locale.getDefault());
+                return df.parse(dateStr);
+            } catch (Exception e) {
+                return null;
+            }
+
+
+        }
+
+        // end if
+        return null;
+    }
+
+    public static String formatDate1(Date date) {
+        SimpleDateFormat sf1 = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
         try {
-            return df.format(date);
+            return sf1.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+    public static String formatTime(Date date) {
+        SimpleDateFormat sf1 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            return sf1.format(date);
         } catch (Exception e) {
             return "";
         }

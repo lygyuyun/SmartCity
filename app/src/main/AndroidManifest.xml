@@ -9,8 +9,8 @@
         android:name="com.tourcool.core.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/eex"
-        android:roundIcon="@drawable/eex"
         android:label="@string/app_name"
+        android:roundIcon="@drawable/eex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- 配置APP渠道号 -->
@@ -93,36 +93,33 @@
         <activity
             android:name="com.tourcool.ui.mvp.account.RegisterActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.tourcool.ui.mvp.account.LoginActivity"
-            android:launchMode="singleTask"
-            />
-        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel1Activity"
-            />
-        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel2Activity"
-            />
-        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel3Activity"
-            />
+        <activity
+            android:name="com.tourcool.ui.mvp.account.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel1Activity" />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel2Activity" />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel3Activity" />
         <activity android:name="com.tourcool.ui.mvp.account.CertificationRealNameActivity" />
         <activity android:name="com.tourcool.ui.mvp.weather.WeatherActivity" />
         <activity android:name="com.tourcool.ui.base.BaseTitleTransparentActivity" />
         <activity android:name="com.tourcool.ui.mvp.recharge.RechargeActivity" />
-        <activity android:name="com.tourcool.ui.WebViewActivityTest"
-            android:hardwareAccelerated="false"
-            />
+        <activity
+            android:name="com.tourcool.ui.WebViewActivityTest"
+            android:hardwareAccelerated="false" />
         <activity android:name="com.tourcool.ui.mvp.account.SystemSettingActivity" />
         <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivity" />
         <activity android:name="com.tourcool.ui.mvp.account.BindPhoneActivity" />
-        <activity android:name="com.tourcool.ui.mvp.account.PersonalDataActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
+        <activity
+            android:name="com.tourcool.ui.mvp.account.PersonalDataActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.tourcool.ui.mvp.garbage.GabageClassifyTabActivity" />
         <activity android:name="com.tourcool.ui.mvp.service.ServiceActivity" />
         <activity android:name="com.tourcool.ui.mvp.account.ForgetPasswordActivity" />
         <activity android:name="com.tourcool.ui.mvp.search.SearchActivity" />
         <activity android:name="com.tourcool.ui.mvp.service.SecondaryServiceActivity" />
-        <activity android:name="com.tourcool.ui.mvp.account.SettingPassActivity"
-            android:launchMode="singleTask"
-            />
+        <activity
+            android:name="com.tourcool.ui.mvp.account.SettingPassActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.tourcool.ui.orc.ScanBankCardActivity" />
         <activity android:name="com.tourcool.ui.orc.ScanIdCardActivity" />
         <activity android:name="com.tourcool.ui.orc.OrcSelectActivity" />
@@ -133,23 +130,27 @@
         <activity android:name="com.tourcool.ui.certify.ScanIdCardActivity" />
         <!-- 为了使用 "通用跳转 SDK" 的能力，需要在你的 App 的 AndroidManifest.xml 中添加这一项 -->
         <!-- 并合理设置 android:scheme 的值 -->
-        <activity android:name="com.alipay.sdk.app.AlipayResultActivity" tools:node="merge">
+        <activity
+            android:name="com.alipay.sdk.app.AlipayResultActivity"
+            tools:node="merge">
             <intent-filter tools:node="replace">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="smart_city_yi_xing_ali_paysdk"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="smart_city_yi_xing_ali_paysdk" />
             </intent-filter>
         </activity>
         <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivityNew" />
-        <activity android:name="com.tourcool.ui.kitchen.VideoListActivity"
-            android:launchMode="singleTask"
+        <activity
+            android:name="com.tourcool.ui.kitchen.VideoListActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            />
+            android:launchMode="singleTask" />
         <activity android:name="com.tourcool.ui.kitchen.DeviceListActivity" />
-        <activity android:name="com.tourcool.ui.kitchen.LivePlayActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            />
+        <activity
+            android:name="com.tourcool.ui.kitchen.LivePlayActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
         <activity android:name="com.tourcool.ui.kitchen.TestListActivity" />
         <activity android:name="com.tourcool.ui.kitchen.ProtocolActivity" />
         <activity android:name="com.tourcool.ui.parking.MineParkingActivity" />
@@ -179,6 +180,9 @@
         <activity android:name="com.tourcool.ui.citizen_card.CitizenCardQrCodeActivity" />
         <activity android:name="com.tourcool.ui.citizen_card.CitizenCardBindActivity" />
         <activity android:name="com.tourcool.ui.citizen_card.card.CitizenCardTransactionRecordActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.card.CitizenCardRecordCostDetailActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.card.CitizenCardRecordRechargeListActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.card.CitizenCardRecordRechargeDetailActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"
@@ -192,6 +196,7 @@
         <meta-data
             android:name="PGYER_APPID"
             android:value="${PGYER_ID}"></meta-data>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -205,12 +210,16 @@
             android:name="com.pgyersdk.PgyerProvider"
             android:authorities="${applicationId}.com.pgyer.provider"
             android:exported="false" />
-        <service android:name="com.amap.api.location.APSService"/>
 
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="f85c58d526187709b4adf7fdcc5de717">
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="f85c58d526187709b4adf7fdcc5de717">
 
         </meta-data>
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -223,14 +232,12 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
-
     <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
 
     <!--用于申请调用A-GPS模块-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
 
 </manifest>

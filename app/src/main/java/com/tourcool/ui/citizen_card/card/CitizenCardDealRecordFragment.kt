@@ -3,6 +3,7 @@ import android.os.Bundle
 import com.frame.library.core.basis.BaseFragment
 import com.frame.library.core.util.FrameUtil
 import com.tourcool.smartcity.R
+import com.tourcool.ui.citizen_card.card.CitizenCardRecordRechargeListActivity
 import com.tourcool.ui.citizen_card.card.CitizenCardTransactionRecordActivity
 import kotlinx.android.synthetic.main.fragment_citizen_card_deal_record_enter.*
 
@@ -26,6 +27,10 @@ class CitizenCardDealRecordFragment : BaseFragment() {
         llRecordCost.setOnClickListener {
             FrameUtil.startActivity(mContext, CitizenCardTransactionRecordActivity::class.java)
         }
+        llRecordRecharge.setOnClickListener {
+            FrameUtil.startActivity(mContext, CitizenCardRecordRechargeListActivity::class.java)
+        }
+
     }
     companion object {
 

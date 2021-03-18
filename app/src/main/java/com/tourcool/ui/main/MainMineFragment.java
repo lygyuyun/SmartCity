@@ -391,6 +391,10 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
 
     private void goCitizenCard() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
         ApiRepository.getInstance().requestHasBindCitizenCard().compose(bindUntilEvent(FragmentEvent.DESTROY)).subscribe(new BaseLoadingObserver<BaseResult<Boolean>>() {
             @Override
             public void onRequestNext(BaseResult<Boolean> entity) {

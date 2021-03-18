@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/tvConfirm"
+            android:id="@+id/tvRefund"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -24,7 +24,7 @@
         <androidx.core.widget.NestedScrollView
             android:orientation="vertical"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/tvConfirm"
+            android:layout_above="@id/tvRefund"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

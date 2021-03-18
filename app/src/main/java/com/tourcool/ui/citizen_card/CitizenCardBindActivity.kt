@@ -102,8 +102,9 @@ class CitizenCardBindActivity : BaseCommonTitleActivity(), View.OnClickListener 
     private fun requestApplyVirtualCard() {
         ApiRepository.getInstance().requestApplyVirtualCard().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<OpenCardVirtual>>() {
             override fun onRequestNext(entity: BaseResult<OpenCardVirtual>?) {
-                if (entity?.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    ToastUtil.showSuccess("开通成功：" + entity.data.cardno)
+                if (entity?.status == RequestConfig.CODE_REQUEST_SUCCESS && entity.data != null) {
+                    AccountHelper.getInstance().userInfo.citizenCardVirtualNo = entity.data.cardno
+                    skipCardTabAndSaveCard()
                 } else {
                     ToastUtil.show(entity?.errorMsg)
                 }
@@ -130,10 +131,10 @@ class CitizenCardBindActivity : BaseCommonTitleActivity(), View.OnClickListener 
     private fun requestBindCitizenCardMaterial() {
         ApiRepository.getInstance().requestBindCitizenCardMaterial().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<CardMaterialInfo>>() {
             override fun onRequestNext(entity: BaseResult<CardMaterialInfo>?) {
-                if (entity?.status == RequestConfig.CODE_REQUEST_SUCCESS) {
+                if (entity?.status == RequestConfig.CODE_REQUEST_SUCCESS && entity.data != null) {
                     ToastUtil.showSuccess(entity.errorMsg)
-                    FrameUtil.startActivity(mContext, CitizenCardTabActivity::class.java)
-                    finish()
+                    AccountHelper.getInstance().userInfo.citizenCardMaterialNo = entity.data.materialCardNum
+                    skipCardTabAndSaveCard()
                 } else {
                     ToastUtil.show(entity?.errorMsg)
                 }
@@ -151,5 +152,12 @@ class CitizenCardBindActivity : BaseCommonTitleActivity(), View.OnClickListener 
             requestBindCitizenCardMaterial()
         }.setMsg(info.toString())
                 .setTitle("确认市名卡信息").setCancelable(false).setCanceledOnTouchOutside(false).show()
+    }
+
+
+    private fun skipCardTabAndSaveCard() {
+        AccountHelper.getInstance().saveUserInfoToDisk(AccountHelper.getInstance().userInfo)
+        FrameUtil.startActivity(mContext, CitizenCardTabActivity::class.java)
+        finish()
     }
 }

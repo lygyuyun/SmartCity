@@ -42,8 +42,43 @@
                         android:layout_width="@dimen/dp_170"
                         android:layout_height="@dimen/dp_170"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_20" />
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/llAmountEnough"
+                        android:background="#CCFFFFFF"
+                        android:layout_width="@dimen/dp_170"
+                        android:layout_height="@dimen/dp_170"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_20"
-                        android:src="@mipmap/ic_no_network" />
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="余额不足"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/black333333"
+                            android:textSize="@dimen/sp_13" />
+
+                        <TextView
+                            android:id="@+id/tvRecharge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/selector_radius_25_blue_4287ff"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:paddingStart="@dimen/dp_25"
+                            android:paddingTop="@dimen/dp_9"
+                            android:paddingEnd="@dimen/dp_25"
+                            android:paddingBottom="@dimen/dp_9"
+                            android:text="立即充值"
+                            android:textColor="@color/whiteCommon"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
                 </RelativeLayout>
 
 
@@ -64,13 +99,14 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/limitAmount"
                     style="@style/Text12spGrayA2A2A2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_30"
                     android:layout_marginBottom="@dimen/dp_30"
-                    android:text="为了不影响您的使用，请确保市民卡余额大于XX元" />
+                    android:text="为了不影响您的使用，请确保市民卡余额大于10元" />
 
 
                 <View
@@ -81,10 +117,10 @@
                     android:background="@color/grayE0E0E0" />
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginBottom="@dimen/dp_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -123,14 +159,39 @@
                             android:layout_gravity="center_horizontal"
                             android:maxWidth="@dimen/dp_46"
                             android:maxHeight="@dimen/dp_46"
-                            android:src="@mipmap/ic_citizen_car_count" />
+                            android:src="@mipmap/ic_citizen_card_cost" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:text="开通车次"
+                            android:text="适用食堂"
+                            android:textColor="#555555"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llCostRecord"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:maxWidth="@dimen/dp_46"
+                            android:maxHeight="@dimen/dp_46"
+                            android:src="@mipmap/ic_citizen_card_shitang" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="消费记录"
                             android:textColor="#555555"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
@@ -147,38 +208,14 @@
                             android:layout_gravity="center_horizontal"
                             android:maxWidth="@dimen/dp_46"
                             android:maxHeight="@dimen/dp_46"
-                            android:src="@mipmap/ic_citizen_car_count" />
+                            android:src="@mipmap/ic_citizen_card_bus" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:text="开通车次"
-                            android:textColor="#555555"
-                            android:textSize="@dimen/sp_12" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:maxWidth="@dimen/dp_46"
-                            android:maxHeight="@dimen/dp_46"
-                            android:src="@mipmap/ic_citizen_car_count" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:text="开通车次"
+                            android:text="常见问题"
                             android:textColor="#555555"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
@@ -192,8 +229,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_25"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_25"
+                android:layout_marginBottom="@dimen/dp_20"
                 android:background="@drawable/bg_radius_10_white"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_18"
@@ -205,15 +242,15 @@
                     style="@style/Text13spBlack333333"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:text="当前余额" />
+                    android:text="当前余额"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvCurrentMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="#5593FF" />
+                    android:textColor="#5593FF"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>

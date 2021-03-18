@@ -1,5 +1,6 @@
 package com.tourcool.ui.citizen_card
 
+import CitizenCardDealRecordFragment
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -58,11 +59,19 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
     private var mTabNameList = ArrayList<String>()
     private val mFragments = ArrayList<Fragment>()
     private var mChannelPagerAdapter: TabPagerAdapter? = null
+    private var skipType:String ?= null
     override fun getContentLayout(): Int {
         return R.layout.activity_citizen_card_info_tab
     }
 
+    companion object {
+        const val EXTRA_SKIP_RECHARGE = "recharge"
+        const val EXTRA_KEY = "skipType"
+        const val REQUEST_CODE_RECHARGE = 1202
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
+        skipType = intent.getStringExtra(EXTRA_KEY)
         initFragment()
         initMagicIndicator()
         mChannelPagerAdapter = TabPagerAdapter(mFragments, supportFragmentManager)
@@ -71,8 +80,12 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
         commonNavigator.notifyDataSetChanged()
 
         ivQrCode.setOnClickListener(View.OnClickListener {
-           FrameUtil.startActivity(mContext,CitizenCardQrCodeActivity::class.java)
+            FrameUtil.startActivity(mContext, CitizenCardQrCodeActivity::class.java)
         })
+
+        if(EXTRA_SKIP_RECHARGE == skipType){
+            mViewPager.currentItem = 2
+        }
     }
 
     private fun initFragment() {
@@ -81,7 +94,7 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
         mTabNameList.add("市民卡信息")
         mFragments.add(CitizenCardDealRecordFragment.newInstance()!!)
         mTabNameList.add("市民卡交易")
-        mFragments.add(CitizenCardOperationContainerFragment.newInstance()!!)
+        mFragments.add(CitizenCardOperationContainerFragment.newInstance(skipType)!!)
         mTabNameList.add("市民卡操作")
     }
 
@@ -136,7 +149,7 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
             override fun onRequestNext(entity: BaseResult<CitizenAccountInfo>) {
                 TourCooLogUtil.i("CitizenCardTabActivity", entity)
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                TourCooLogUtil.i(entity.data)
+                    TourCooLogUtil.i(entity.data)
                 } else {
                     ToastUtil.show(entity.errorMsg)
                 }
@@ -147,11 +160,11 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
 
     override fun loadData() {
         super.loadData()
-        if(!AccountHelper.getInstance().isLogin){
+        if (!AccountHelper.getInstance().isLogin) {
             skipLogin()
             return
         }
-        if(!AccountHelper.getInstance().userInfo.isVerified){
+        if (!AccountHelper.getInstance().userInfo.isVerified) {
             skipCertify()
             return
         }
@@ -273,5 +286,20 @@ class CitizenCardTabActivity : BaseTitleTransparentActivity(), EasyPermissions.P
                 TourCooLogUtil.e(TAG, e.toString())
             }
         })
+    }
+
+
+    fun updateCardNum(num: String) {
+        tvCardNum.text = num
+    }
+
+    fun updateAmount() {
+        if (mFragments.size > 1) {
+            (mFragments[0] as CitizenCardInfoFragment).refreshAccount()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

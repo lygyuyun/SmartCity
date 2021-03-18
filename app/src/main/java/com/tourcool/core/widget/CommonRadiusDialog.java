@@ -135,6 +135,12 @@ public class CommonRadiusDialog {
         return this;
     }
 
+    public CommonRadiusDialog setMsg(String msg,int gravity) {
+        setMsg(msg);
+        msgTv.setGravity(gravity);
+        return this;
+    }
+
     public CommonRadiusDialog setSecondMsg(String msg) {
         if (TextUtils.isEmpty(msg)) {
             tvContentSecond.setVisibility(View.GONE);
@@ -183,6 +189,14 @@ public class CommonRadiusDialog {
     public void show() {
         if (dialog != null) {
             dialog.show();
+        }
+
+    }
+
+
+    public void dismiss() {
+        if (dialog != null) {
+            dialog.dismiss();
         }
 
     }

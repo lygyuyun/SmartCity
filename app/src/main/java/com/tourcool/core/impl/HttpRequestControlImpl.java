@@ -117,7 +117,11 @@ public class HttpRequestControlImpl implements HttpRequestControl {
                 reason = R.string.fast_exception_socket;
                 // http异常
             } else if (e instanceof HttpException) {
-                reason = R.string.fast_exception_http;
+                if (e.getMessage().contains("401")) {
+                    reason = R.string.fast_exception_accounts;
+                } else {
+                    reason = R.string.fast_exception_http;
+                }
                 //DNS错误
             } else if (e instanceof UnknownHostException) {
                 reason = R.string.fast_exception_unknown_host;
@@ -157,7 +161,7 @@ public class HttpRequestControlImpl implements HttpRequestControl {
                 return;
             }
             if (!NetworkUtil.isConnected(MyApplication.getContext())) {
-                statusLayoutManager.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok);
+                statusLayoutManager.showCustomLayout(R.layout.common_status_layout_no_network, R.id.llNoNetwok);
                 return;
             }
             //初始页
